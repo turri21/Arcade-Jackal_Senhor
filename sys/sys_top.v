@@ -74,7 +74,7 @@ module sys_top
 //	output  [5:0] VGA_B,
 //	inout         VGA_HS,
 //	output		  VGA_VS,
-	input         VGA_EN,  // active low
+//	input         VGA_EN,  // active low
 
 	/////////// AUDIO //////////
 //	output		  AUDIO_L,
@@ -131,7 +131,7 @@ wire [5:0] VGA_G;
 wire [5:0] VGA_B;
 //wire VGA_HS;
 //wire VGA_VS;
-//wire VGA_EN = 1'b1;
+wire VGA_EN = 1'b1;
 
 assign VGA_R = 6'b000000;
 assign VGA_G = 6'b000000;
@@ -147,21 +147,21 @@ wire BTN_RESET = 1'b1, BTN_OSD = 1'b1, BTN_USER = 1'b1;
 /////////////////////////////////////////////////////////////////////////
 
 //////////////////////  Secondary SD  ///////////////////////////////////
-wire SD_CS, SD_CLK, SD_MOSI, SD_MISO, SD_CD;
+//wire SD_CS, SD_CLK, SD_MOSI, SD_MISO, SD_CD;
 
 `ifndef MISTER_DUAL_SDRAM
-	assign SD_CD       = mcp_en ? mcp_sdcd : SDCD_SPDIF;
+//	assign SD_CD       = mcp_en ? mcp_sdcd : SDCD_SPDIF;
 //	assign SD_MISO     = SD_CD | (mcp_en ? SD_SPI_MISO : (VGA_EN | SDIO_DAT[0]));
 //	assign SD_SPI_CS   = mcp_en ?  (mcp_sdcd  ? 1'bZ : SD_CS) : (sog & ~cs1 & ~VGA_EN) ? 1'b1 : 1'bZ;
-	assign SD_SPI_CLK  = (~mcp_en | mcp_sdcd) ? 1'bZ : SD_CLK;
-	assign SD_SPI_MOSI = (~mcp_en | mcp_sdcd) ? 1'bZ : SD_MOSI;
+//	assign SD_SPI_CLK  = (~mcp_en | mcp_sdcd) ? 1'bZ : SD_CLK;
+//	assign SD_SPI_MOSI = (~mcp_en | mcp_sdcd) ? 1'bZ : SD_MOSI;
 //	assign {SDIO_CLK,SDIO_CMD,SDIO_DAT} = av_dis ? 6'bZZZZZZ : (mcp_en | (SDCD_SPDIF & ~SW[2])) ? {vga_g,vga_r,vga_b} : {SD_CLK,SD_MOSI,SD_CS,3'bZZZ};
 `else
-	assign SD_CD       = mcp_sdcd;
-	assign SD_MISO     = mcp_sdcd | SD_SPI_MISO;
-	assign SD_SPI_CS   = mcp_sdcd ? 1'bZ : SD_CS;
-	assign SD_SPI_CLK  = mcp_sdcd ? 1'bZ : SD_CLK;
-	assign SD_SPI_MOSI = mcp_sdcd ? 1'bZ : SD_MOSI;
+//	assign SD_CD       = mcp_sdcd;
+//	assign SD_MISO     = mcp_sdcd | SD_SPI_MISO;
+//	assign SD_SPI_CS   = mcp_sdcd ? 1'bZ : SD_CS;
+//	assign SD_SPI_CLK  = mcp_sdcd ? 1'bZ : SD_CLK;
+//	assign SD_SPI_MOSI = mcp_sdcd ? 1'bZ : SD_MOSI;
 `endif
 
 //////////////////////  LEDs/Buttons  ///////////////////////////////////
@@ -239,12 +239,12 @@ always @(posedge FPGA_CLK2_50) begin
 
 	if(!div) begin
 //		deb_user <= {deb_user[6:0], btn_u | ~KEY[0]};
-		if(&deb_user) btn_user <= 1;
-		if(!deb_user) btn_user <= 0;
+//		if(&deb_user) btn_user <= 1;
+//		if(!deb_user) btn_user <= 0;
 
 //		deb_osd <= {deb_osd[6:0], btn_o | ~KEY[1]};
-		if(&deb_osd) btn_osd <= 1;
-		if(!deb_osd) btn_osd <= 0;
+//		if(&deb_osd) btn_osd <= 1;
+//		if(!deb_osd) btn_osd <= 0;
 	end
 end
 
